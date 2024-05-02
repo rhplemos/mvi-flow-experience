@@ -19,7 +19,7 @@ class MainViewModel(private val repository: MainRepository): ViewModel() {
     sealed class DashboardState {
         object Idle : DashboardState()
         object Loading : DashboardState()
-        data class Success(val book: List<BandModel>) : DashboardState()
+        data class Success(val bands: List<BandModel>) : DashboardState()
         data class Error(val error: String?) : DashboardState()
     }
 
@@ -31,7 +31,7 @@ class MainViewModel(private val repository: MainRepository): ViewModel() {
         viewModelScope.launch {
             userIntent.consumeAsFlow().collect {
                 when (it) {
-                    is DashboardIntent.FetchBand -> fetchBook()
+                    is DashboardIntent.FetchBand -> fetchBand()
                     is DashboardIntent.ValidateBand -> validateBand()
                     is DashboardIntent.DeleteBand -> deleteBand()
                 }
@@ -39,11 +39,11 @@ class MainViewModel(private val repository: MainRepository): ViewModel() {
         }
     }
 
-    private fun fetchBook() {
+    private fun fetchBand() {
         viewModelScope.launch {
             _state.value = DashboardState.Loading
             _state.value = try {
-                DashboardState.Success(repository.getBooks())
+                DashboardState.Success(repository.getBands())
             } catch (e: Exception) {
                 DashboardState.Error(e.localizedMessage)
             }
@@ -51,12 +51,12 @@ class MainViewModel(private val repository: MainRepository): ViewModel() {
     }
 
     private fun validateBand() {
-        // logic to validate the book
+
     }
 
 
     private fun deleteBand() {
-        // logic to delete the book
+
     }
 
 }

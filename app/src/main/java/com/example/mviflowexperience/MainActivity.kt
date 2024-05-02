@@ -25,7 +25,7 @@ class MainActivity: AppCompatActivity() {
                     }
                     is MainViewModel.DashboardState.Success -> {
                         handleProgressbar(View.GONE)
-                        Toast.makeText(applicationContext, "Books ${it.book.size}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, "Bands ${it.bands.size}", Toast.LENGTH_LONG).show()
                     }
                     is MainViewModel.DashboardState.Error -> {
                         handleProgressbar(View.GONE)

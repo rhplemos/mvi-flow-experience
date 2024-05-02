@@ -4,5 +4,5 @@ import com.example.mviflowexperience.models.BandModel
 
 interface ApiClient {
 //    @GET("bands")
-    suspend fun getBooks(): List<BandModel>
+    suspend fun getBands(): List<BandModel>
 }
